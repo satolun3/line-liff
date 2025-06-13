@@ -10,19 +10,24 @@
   <button onclick="main()">情報を取得</button>
   <pre id="output"></pre>
 
-  <script>
-    async function main() {
-      await liff.init({ liffId: "あなたのLIFF ID" });
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+  async function main() {
+    await liff.init({ liffId: "2007571697-Y1rQqXZG" });
 
-      if (!liff.isLoggedIn()) {
-        liff.login();
-        return;
-      }
-
+    if (!liff.isLoggedIn()) {
+      liff.login();
+    } else {
       const profile = await liff.getProfile();
-      document.getElementById("output").textContent =
-        `🆔 userId: ${profile.userId}\n👤 名前: ${profile.displayName}`;
+      document.body.innerHTML = `
+        <h2>こんにちは、${profile.displayName}さん</h2>
+        <p>ユーザーID: ${profile.userId}</p>
+      `;
+      console.log("User ID:", profile.userId);
     }
-  </script>
+  }
+
+  main();
+</script>
 </body>
 </html>
